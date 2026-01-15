@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Test Slideshow</title>
+<style>
+body {
+  margin: 0;
+  background: black;
+}
+img {
+  width: 100vw;
+  height: 100vh;
+  object-fit: contain;
+}
+</style>
+</head>
+
+<body>
+
+<img id="slide" src="images/01.JPG">
+
+<script>
+const images = [
+  "images/01.JPG",
+  "images/02.JPG",
+  "images/03.JPG",
+  "images/04.JPG",
+  "images/05.JPG",
+  "images/06.JPG",
+  "images/07.JPG",
+  "images/07.JPG",
+  "images/08.JPG",
+  "images/09.JPG",
+  "images/10.JPG"
+];
+
+let index = 0;
+let interval = 750;
+let timer;
+let paused = false;
+
+const slide = document.getElementById("slide");
+
+function showNext() {
+  if (paused) return;
+  index = (index + 1) % images.length;
+  slide.src = images[index];
+}
+
+timer = setInterval(showNext, interval);
+
+/* --- POINTER EVENTS (touch, mouse, TV, pen) --- */
+document.addEventListener("pointerdown", () => {
+  paused = true;
+});
+
+document.addEventListener("pointerup", () => {
+  paused = false;
+});
+
+document.addEventListener("pointercancel", () => {
+  paused = false;
+});
+
+/* --- Prevent context menu / long press --- */
+document.addEventListener("contextmenu", e => e.preventDefault());
+</script>
+
+</body>
+</html>
